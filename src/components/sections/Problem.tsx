@@ -48,31 +48,29 @@ export function Problem() {
         >
           {/* Background Image */}
           <Image
-            src="/images/gallery/problem-bg.jpg"
-            alt=""
+            src="/images/gallery/problem3.jpg"
+            alt="Dating frustration"
             fill
             className="object-cover"
             priority
           />
           {/* Dark overlay for text readability */}
-          <div className="absolute inset-0 bg-black/60" />
+          <div className="absolute inset-0 bg-black/50" />
 
           {/* Content centered over image */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="max-w-3xl mx-auto text-center px-6">
+              {/* Label */}
+              <p className="text-sm uppercase tracking-widest text-[var(--color-accent)] mb-3">
+                {c.label}
+              </p>
               {/* Headline */}
-              <h2 className="font-[var(--font-playfair)] text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 sm:mb-3 leading-tight">
+              <h2 className="font-[var(--font-playfair)] text-lg sm:text-2xl md:text-3xl lg:text-[2.8rem] font-bold text-white leading-tight mb-1">
                 {c.headline}
               </h2>
-
-              {/* Headline Accent */}
-              <p className="text-base sm:text-xl md:text-2xl text-white/40 mb-3 sm:mb-4 font-light">
+              {/* Headline Accent - smaller */}
+              <p className="font-[var(--font-playfair)] text-sm sm:text-base md:text-lg lg:text-xl font-bold text-white/40 leading-tight">
                 {c.headlineAccent}
-              </p>
-
-              {/* Subhead */}
-              <p className="text-sm sm:text-base md:text-lg text-white/60 max-w-xl mx-auto">
-                {c.subhead}
               </p>
             </div>
           </div>

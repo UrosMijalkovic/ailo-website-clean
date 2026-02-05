@@ -20,25 +20,25 @@ export const copy = {
 
     // SECTION 2: THE PROBLEM
     problem: {
+      label: "Sound Familiar?",
       headline: "You've Done Everything Right.",
       headlineAccent: "Dating Still Doesn't Work.",
-      subhead: "You're successful. You know what you want. So why is this so hard?",
       painPoints: [
         {
-          title: "You're not looking for hookups.",
-          description: "But that's all apps deliver.",
+          title: "Looking for real connection",
+          description: "But apps only deliver hookups and dead ends",
         },
         {
-          title: "Great on paper. Zero chemistry in person.",
-          description: "Boring dates. No spark.",
+          title: "Great on paper, no spark in person",
+          description: "Endless dates that go nowhere",
         },
         {
-          title: "5 months in, the real problems start.",
-          description: "Conflict styles clash. Needs don't align. You're already emotionally drained.",
+          title: "Months in, the problems start",
+          description: "Conflict styles clash. Needs don't align.",
         },
         {
-          title: "You've tried everything.",
-          description: "Same cycle. Same outcome.",
+          title: "You've tried everything",
+          description: "Same cycle. Same disappointment.",
         },
       ],
       closer: "AILO doesn't fix you. It filters for you.",
@@ -531,46 +531,83 @@ export const copy = {
   // ===========================================
   duo: {
     hero: {
-      badge: "For Couples",
-      headline: "Are You Actually Compatible?",
-      subhead: "Take AILO's compatibility assessment together. Understand your relationship dynamics — why you connect, where you might clash, and how to grow stronger.",
-      cta: "Get AILO Duo",
+      badge: "For Two",
+      headline: "See How You Connect",
+      subhead: "Whether you're just getting started or years into your relationship — understand what makes you work together.",
+      ctaPrimary: "Download the App",
+      ctaSecondary: "How It Works",
     },
-    whatsIncluded: {
-      headline: "What's Included",
-      features: [
-        { title: "Two Assessments", description: "Both of you complete AILO's compatibility assessment" },
-        { title: "Compatibility Report", description: "See your compatibility score and detailed breakdown" },
-        { title: "Communication Insights", description: "Learn how you naturally connect and where you might clash" },
-        { title: "Relationship Roadmap", description: "Understand your strengths and growth areas as a couple" },
-      ],
+    bridge: {
+      line1: "AILO Duo is compatibility insight for couples.",
+      line2: "No assumptions. No arguments. Just clarity.",
+      line3: "Understand how you connect — and where you can grow together.",
     },
-    useCases: {
-      headline: "Perfect For Every Stage",
-      subhead: "Whether you're just starting out or years into your relationship",
-      cases: [
-        { title: "New Relationships", description: "Know if you're truly compatible before you invest more time" },
-        { title: "Serious Dating", description: "Discover what makes your connection work — and what to watch for" },
-        { title: "Committed Couples", description: "Deepen your understanding and strengthen your bond" },
-        { title: "Considering Marriage", description: "Get clarity before making a lifetime commitment" },
+    occasions: {
+      label: "Perfect For",
+      items: [
+        {
+          title: "Testing the Waters",
+          description: "You're seeing someone new and want to know if it's worth investing more time",
+        },
+        {
+          title: "Before Getting Serious",
+          description: "You're dating exclusively and want clarity before going deeper",
+        },
+        {
+          title: "Strengthening Your Bond",
+          description: "You're committed and want to understand each other better",
+        },
+        {
+          title: "Considering the Next Step",
+          description: "You're thinking about moving in, getting engaged, or taking things further",
+        },
       ],
     },
     howItWorks: {
-      headline: "How It Works",
+      label: "How AILO Duo Works",
       steps: [
-        { title: "You Take the Assessment", description: "Complete AILO's compatibility assessment (7 minutes)" },
-        { title: "Invite Your Partner", description: "Share a link with the person you want to compare with" },
-        { title: "Get Your Report", description: "Once both complete, receive your detailed compatibility analysis" },
+        {
+          number: "01",
+          title: "You Take the Assessment",
+          description: "Complete AILO's 7-minute compatibility assessment. It measures how you actually show up in relationships.",
+        },
+        {
+          number: "02",
+          title: "Invite Your Partner",
+          description: "Share a link with the person you want to compare with. They complete the same assessment.",
+        },
+        {
+          number: "03",
+          title: "Get Your Compatibility Report",
+          description: "Once both complete, receive your detailed compatibility analysis across all 6 markers.",
+        },
       ],
     },
-    testimonial: {
-      quote: "We'd been dating for 6 months and everything felt right, but I wanted to be sure. AILO Duo showed us exactly why we work — and the few things to watch for.",
-      attribution: "— Rachel & James, Together 2 Years",
+    whatYouGet: {
+      label: "What You'll Discover",
+      items: [
+        {
+          title: "Your Compatibility Score",
+          description: "See exactly how aligned you are across 6 key markers",
+        },
+        {
+          title: "Where You Click",
+          description: "Discover your natural strengths as a couple",
+        },
+        {
+          title: "Where to Watch Out",
+          description: "Understand potential friction points before they become problems",
+        },
+        {
+          title: "Your Relationship Roadmap",
+          description: "Actionable insights to grow stronger together",
+        },
+      ],
     },
     cta: {
-      headline: "Ready to Test Your Compatibility?",
-      valueProp: "Two assessments. One compatibility report. Zero guesswork.",
-      memberNote: "Already an AILO member? Duo is included free with your membership.",
+      headline: "Understand Your Connection",
+      subhead: "Two assessments. One report. A clearer path forward.",
+      note: "Already an AILO member? Duo is included free.",
     },
   },
 
@@ -590,6 +627,25 @@ export const copy = {
     },
     cta: {
       headline: "Ready to find your match?",
+      button: "Apply for Access",
+    },
+  },
+
+  // ===========================================
+  // EVENTS PAGE
+  // ===========================================
+  events: {
+    header: {
+      label: "AILO Community",
+      headline: "Where Connections Begin",
+      subhead: "Exclusive events for AILO members in South Florida. Meet the community. No pressure. Just real people.",
+    },
+    gallery: {
+      label: "Recent Events",
+    },
+    cta: {
+      headline: "Be Part of Something Real",
+      subhead: "AILO events are exclusive to members. Apply to join.",
       button: "Apply for Access",
     },
   },

@@ -101,7 +101,7 @@ export function ExperienceAilo() {
                 </p>
                 <Link
                   href="/duo"
-                  className="inline-flex items-center text-[var(--color-primary)] text-sm font-medium hover:underline"
+                  className="inline-flex items-center text-white text-sm font-medium hover:underline"
                 >
                   Learn About AILO Duo
                   <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">

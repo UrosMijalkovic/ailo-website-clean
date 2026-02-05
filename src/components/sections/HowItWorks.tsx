@@ -107,17 +107,18 @@ export function HowItWorks() {
           className="relative mb-16 sm:mb-24 py-10 sm:py-16 px-4 sm:px-8 rounded-2xl sm:rounded-3xl overflow-hidden"
           style={{ scale, opacity }}
         >
-          {/* Teal gradient background */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-primary)]/10 via-[var(--color-primary)]/5 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[var(--color-primary)]/5 to-transparent" />
+          {/* Premium gradient background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-transparent backdrop-blur-xl rounded-2xl sm:rounded-3xl" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/5 rounded-2xl sm:rounded-3xl" />
 
           {/* DNA Animation Background */}
           {animationData && (
-            <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
+            <div className="absolute inset-0 flex items-center justify-center opacity-35 pointer-events-none">
               <Lottie
                 animationData={animationData}
                 loop
                 autoplay
+                speed={0.5}
                 className="w-full h-full max-w-4xl"
               />
             </div>
@@ -131,14 +132,14 @@ export function HowItWorks() {
               {c.markers.map((marker, index) => (
                 <div
                   key={index}
-                  className="group p-4 sm:p-6 rounded-2xl bg-[var(--color-primary)]/15 backdrop-blur-sm border border-[var(--color-accent)]/20 hover:border-[var(--color-accent)]/50 transition-colors"
+                  className="group p-4 sm:p-6 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/8 hover:border-[var(--color-accent)]/30 transition-all duration-300"
                 >
                   <div className="flex items-start gap-4">
-                    <span className="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--color-accent)]/20 to-[var(--color-accent)]/5 border border-[var(--color-accent)]/40 flex items-center justify-center text-[var(--color-accent)]">
+                    <span className="flex-shrink-0 w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-[var(--color-accent)]">
                       {markerIcons[index]}
                     </span>
                     <div>
-                      <h3 className="text-white font-semibold mb-1">
+                      <h3 className="text-[var(--color-accent)] font-semibold mb-1">
                         {marker.title}
                       </h3>
                       <p className="text-white/50 text-sm">
