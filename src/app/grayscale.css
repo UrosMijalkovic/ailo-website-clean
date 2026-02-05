@@ -1,0 +1,115 @@
+/* Grayscale Review Mode - v2 */
+/* Add this to layout.tsx to enable grayscale mode */
+
+:root {
+  /* Override all colors to grayscale */
+  --color-primary: #333333;
+  --color-primary-dark: #1a1a1a;
+  --color-accent: #666666;
+  --color-background: #ffffff;
+  --color-surface: #f5f5f5;
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #666666;
+  --color-text-inverse: #ffffff;
+  --color-muted: #999999;
+}
+
+/* Force grayscale on all elements */
+html {
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+}
+
+/* Override gradient backgrounds */
+.bg-gradient-hero,
+.bg-gradient-to-b,
+.bg-gradient-to-br {
+  background: #2a2a2a !important;
+}
+
+/* Simplify cards */
+.card-teal,
+.card-gold,
+.card-muted,
+.card-teal-horizontal {
+  background: #f0f0f0 !important;
+  border: 2px solid #333 !important;
+}
+
+/* Simplify buttons */
+.btn-primary {
+  background: #333 !important;
+  color: #fff !important;
+  border: 2px solid #333 !important;
+}
+
+.btn-secondary {
+  background: transparent !important;
+  color: #333 !important;
+  border: 2px solid #333 !important;
+}
+
+/* Tags/badges */
+.tag-gold,
+.tag-dark {
+  background: #e0e0e0 !important;
+  color: #333 !important;
+  border: 1px solid #333 !important;
+}
+
+/* Gold circles become gray */
+.gold-circle {
+  background: #666 !important;
+}
+
+/* Remove animations */
+.animate-pulse {
+  animation: none !important;
+}
+
+/* Remove shadows */
+* {
+  box-shadow: none !important;
+}
+
+/* Simplify borders */
+.border-white\/10,
+.border-white\/20 {
+  border-color: #ccc !important;
+}
+
+/* Text colors */
+.text-white {
+  color: #1a1a1a !important;
+}
+
+.text-white\/80,
+.text-white\/70,
+.text-white\/60,
+.text-white\/50,
+.text-white\/40 {
+  color: #666 !important;
+}
+
+/* On dark backgrounds, keep text light */
+.bg-gradient-hero .text-white,
+[class*="bg-[#1a1a1a]"] .text-white,
+[class*="bg-[#2a2a2a]"] .text-white {
+  color: #ffffff !important;
+}
+
+.bg-gradient-hero .text-white\/80,
+.bg-gradient-hero .text-white\/70,
+.bg-gradient-hero .text-white\/60 {
+  color: #cccccc !important;
+}
+
+/* Progress bars */
+.progress-bar-fill {
+  background: #666 !important;
+}
+
+/* Images - add border for visibility */
+img {
+  border: 1px solid #ddd !important;
+}
