@@ -382,3 +382,64 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Phone Input Dark Theme (react-phone-number-input) */
+.phone-input-dark {
+  --PhoneInputCountrySelectArrow-color: rgba(255, 255, 255, 0.5);
+  --PhoneInputCountrySelectArrow-color--focus: var(--color-accent);
+  --PhoneInput-color--focus: var(--color-accent);
+}
+
+.phone-input-dark .PhoneInputInput {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
+  padding: 0.625rem 0.75rem;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+  width: 100%;
+}
+
+.phone-input-dark .PhoneInputInput:focus {
+  border-color: var(--color-accent);
+}
+
+.phone-input-dark .PhoneInputInput::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.phone-input-dark .PhoneInputCountry {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
+  padding: 0 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.phone-input-dark .PhoneInputCountryIcon {
+  border-radius: 2px;
+  width: 1.25rem;
+  height: auto;
+}
+
+.phone-input-dark .PhoneInputCountrySelectArrow {
+  margin-left: 0.25rem;
+  opacity: 0.5;
+}
+
+/* Phone Input Error State */
+.phone-input-error .PhoneInputInput {
+  border-color: #f87171;
+}
+
+.phone-input-error .PhoneInputInput:focus {
+  border-color: #f87171;
+}
+
+/* Calendly Widget Container */
+.calendly-inline-widget {
+  border-radius: 0.5rem;
+  overflow: hidden;
+}

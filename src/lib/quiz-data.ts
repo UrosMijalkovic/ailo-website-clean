@@ -42,12 +42,12 @@ export const quizQuestions: QuizQuestion[] = [
   },
   {
     id: "q4",
-    question: "AILO membership is $999-1,499 (one-time). How does that feel?",
+    question: "How do you feel about investing in your love life?",
     options: [
-      { value: "A", label: "Worth it for the right match" },
-      { value: "B", label: "Open to it if the fit is right" },
-      { value: "C", label: "Need to think about it" },
-      { value: "D", label: "Not ready to invest that much" },
+      { value: "A", label: "Willing to invest" },
+      { value: "B", label: "Open to investing, but not certain" },
+      { value: "C", label: "Prefer minimal investment" },
+      { value: "D", label: "Not interested in investing" },
     ],
   },
   {
