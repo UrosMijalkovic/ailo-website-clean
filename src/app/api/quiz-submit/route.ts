@@ -154,13 +154,10 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // 3. Verify reCAPTCHA
+  // 3. Verify reCAPTCHA (non-blocking — log failures but don't reject)
   const recaptchaResult = await verifyRecaptcha(body.recaptchaToken || "");
   if (!recaptchaResult.success) {
-    return NextResponse.json(
-      { error: "recaptcha_failed", message: recaptchaResult.error },
-      { status: 400 }
-    );
+    console.warn("reCAPTCHA verification failed (non-blocking):", recaptchaResult.error);
   }
 
   // 4. Calculate quiz outcome
