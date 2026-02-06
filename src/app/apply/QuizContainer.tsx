@@ -148,7 +148,7 @@ export function QuizContainer() {
     : undefined;
 
   return (
-    <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8">
+    <div className="relative rounded-2xl p-6 md:p-8 backdrop-blur-2xl bg-gradient-to-br from-white/[0.08] via-white/[0.04] to-white/[0.01] border border-white/[0.10] shadow-[0_4px_24px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.06)]">
       {/* Intro Step */}
       {step === "intro" && (
         <div className="text-center">
@@ -177,7 +177,7 @@ export function QuizContainer() {
                 >
                   <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <span>US Patent #8556630B2</span>
+                <span>US Patented Methodology</span>
               </div>
               <div className="flex items-center gap-2">
                 <svg
@@ -233,7 +233,7 @@ export function QuizContainer() {
           {/* Social Proof Bar */}
           <div className="mt-8 pt-4 border-t border-white/10 text-center">
             <p className="text-xs text-white/40">
-              Based on 30+ years of compatibility research • US Patent #8556630B2
+              Based on 30+ years of compatibility research • US Patented Methodology
             </p>
           </div>
         </>
@@ -252,7 +252,7 @@ export function QuizContainer() {
 
           {/* Error Display */}
           {submissionError && (
-            <div className="mt-4 p-4 bg-red-500/10 border border-red-500/30 rounded-lg">
+            <div className="mt-4 p-4 bg-red-500/[0.06] backdrop-blur-xl border border-red-500/20 rounded-xl">
               <p className="text-red-400 text-sm text-center">{submissionError}</p>
             </div>
           )}
@@ -275,8 +275,8 @@ export function QuizContainer() {
       {/* Waitlist Confirmed Modal */}
       {step === "waitlist-confirmed" && (
         <div className="text-center py-8">
-          <div className="gold-circle-lg mx-auto mb-6 w-16 h-16 rounded-full bg-[var(--color-accent)] flex items-center justify-center">
-            <svg className="w-8 h-8 text-[var(--color-primary-dark)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="mx-auto mb-6 w-16 h-16 rounded-full bg-[var(--color-accent)]/20 border border-[var(--color-accent)]/30 flex items-center justify-center shadow-[0_0_24px_rgba(225,185,143,0.15)]">
+            <svg className="w-8 h-8 text-[var(--color-accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
@@ -301,7 +301,7 @@ export function QuizContainer() {
       {/* Not Ready Confirmed Modal */}
       {step === "not-ready-confirmed" && (
         <div className="text-center py-8">
-          <div className="gold-circle-lg mx-auto mb-6 w-16 h-16 rounded-full bg-[var(--color-accent)]/20 flex items-center justify-center">
+          <div className="mx-auto mb-6 w-16 h-16 rounded-full bg-[var(--color-accent)]/20 border border-[var(--color-accent)]/30 flex items-center justify-center shadow-[0_0_24px_rgba(225,185,143,0.15)]">
             <svg className="w-8 h-8 text-[var(--color-accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -327,8 +327,8 @@ export function QuizContainer() {
       {/* Already Applied Modal */}
       {step === "already-applied" && (
         <div className="text-center py-8">
-          <div className="gold-circle-lg mx-auto mb-6 w-16 h-16 rounded-full bg-[var(--color-accent)] flex items-center justify-center">
-            <svg className="w-8 h-8 text-[var(--color-primary-dark)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="mx-auto mb-6 w-16 h-16 rounded-full bg-[var(--color-accent)]/20 border border-[var(--color-accent)]/30 flex items-center justify-center shadow-[0_0_24px_rgba(225,185,143,0.15)]">
+            <svg className="w-8 h-8 text-[var(--color-accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
           </div>
@@ -353,8 +353,8 @@ export function QuizContainer() {
       {/* Call Already Scheduled Modal */}
       {step === "call-already-scheduled" && (
         <div className="text-center py-8">
-          <div className="gold-circle-lg mx-auto mb-6 w-16 h-16 rounded-full bg-[var(--color-accent)] flex items-center justify-center">
-            <svg className="w-8 h-8 text-[var(--color-primary-dark)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="mx-auto mb-6 w-16 h-16 rounded-full bg-[var(--color-accent)]/20 border border-[var(--color-accent)]/30 flex items-center justify-center shadow-[0_0_24px_rgba(225,185,143,0.15)]">
+            <svg className="w-8 h-8 text-[var(--color-accent)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
           </div>

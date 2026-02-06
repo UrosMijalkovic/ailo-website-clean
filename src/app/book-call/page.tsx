@@ -9,6 +9,19 @@ export const metadata: Metadata = {
   title: "Book Your Strategy Call | AILO",
   description:
     "Schedule your personal consultation with AILO. Discover how science-backed matching can transform your dating life.",
+  openGraph: {
+    title: "Book Your Strategy Call | AILO",
+    description:
+      "Schedule your personal consultation with AILO. Discover how science-backed matching can transform your dating life.",
+    images: ["/images/gallery/ailo-call.jpg"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Book Your Strategy Call | AILO",
+    description:
+      "Schedule your personal consultation with AILO. Discover how science-backed matching can transform your dating life.",
+    images: ["/images/gallery/ailo-call.jpg"],
+  },
 };
 
 export default async function BookCallPage() {
@@ -95,12 +108,6 @@ export default async function BookCallPage() {
                   className="hover:text-white transition-colors"
                 >
                   The Science
-                </Link>
-                <Link
-                  href="/about"
-                  className="hover:text-white transition-colors"
-                >
-                  About Us
                 </Link>
                 <Link href="/" className="hover:text-white transition-colors">
                   Home

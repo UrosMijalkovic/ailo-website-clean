@@ -125,7 +125,7 @@ export function ContactForm({
             placeholder="Jane Smith"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className={`bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-[var(--color-accent)] ${
+            className={`bg-white/[0.06] backdrop-blur-xl border-white/[0.10] text-white placeholder:text-white/40 focus:border-[var(--color-accent)] transition-colors duration-300 ${
               errors.name ? "border-red-400" : ""
             }`}
           />
@@ -167,7 +167,7 @@ export function ContactForm({
             placeholder="you@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className={`bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-[var(--color-accent)] ${
+            className={`bg-white/[0.06] backdrop-blur-xl border-white/[0.10] text-white placeholder:text-white/40 focus:border-[var(--color-accent)] transition-colors duration-300 ${
               errors.email ? "border-red-400" : ""
             }`}
           />

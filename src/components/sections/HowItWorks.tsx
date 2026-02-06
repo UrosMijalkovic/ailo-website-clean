@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
@@ -58,18 +58,20 @@ const stepImages = [
   },
 ];
 
+const STEP_DURATION = 5000;
+
 export function HowItWorks() {
   const [activeStep, setActiveStep] = useState<number>(0);
   const [animationData, setAnimationData] = useState<object | null>(null);
+  const [isPaused, setIsPaused] = useState(false);
+  const [animKey, setAnimKey] = useState(0);
   const markersRef = useRef<HTMLDivElement>(null);
 
-  // Track scroll progress for markers box animation
   const { scrollYProgress } = useScroll({
     target: markersRef,
     offset: ["start end", "start center"]
   });
 
-  // Transform scroll progress to scale (0.85 -> 1)
   const scale = useTransform(scrollYProgress, [0, 1], [0.85, 1]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [0.6, 1]);
 
@@ -80,16 +82,26 @@ export function HowItWorks() {
       .catch((err) => console.error("Failed to load animation:", err));
   }, []);
 
-  const handlePrev = () => {
-    setActiveStep((prev) => (prev === 0 ? stepImages.length - 1 : prev - 1));
-  };
+  // Auto-advance steps
+  useEffect(() => {
+    if (isPaused) return;
+    setAnimKey((k) => k + 1);
+    const timeout = setTimeout(() => {
+      setActiveStep((prev) => (prev + 1) % stepImages.length);
+    }, STEP_DURATION);
+    return () => clearTimeout(timeout);
+  }, [activeStep, isPaused]);
 
-  const handleNext = () => {
+  const handlePrev = useCallback(() => {
+    setActiveStep((prev) => (prev === 0 ? stepImages.length - 1 : prev - 1));
+  }, []);
+
+  const handleNext = useCallback(() => {
     setActiveStep((prev) => (prev === stepImages.length - 1 ? 0 : prev + 1));
-  };
+  }, []);
 
   return (
-    <section id="how-it-works" className="relative py-16 sm:py-24 md:py-32 bg-[#111]">
+    <section id="how-it-works" className="relative py-12 sm:py-20 md:py-32 bg-[#111]">
       <div className="container-custom">
         {/* Headline */}
         <div className="max-w-4xl mx-auto text-center mb-12 sm:mb-20">
@@ -108,41 +120,40 @@ export function HowItWorks() {
           style={{ scale, opacity }}
         >
           {/* Premium gradient background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-transparent backdrop-blur-xl rounded-2xl sm:rounded-3xl" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/5 rounded-2xl sm:rounded-3xl" />
+          <div className="absolute inset-0 bg-gradient-to-br from-white/[0.07] via-white/[0.03] to-transparent backdrop-blur-xl rounded-2xl sm:rounded-3xl" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-white/[0.03] rounded-2xl sm:rounded-3xl" />
 
           {/* DNA Animation Background */}
           {animationData && (
-            <div className="absolute inset-0 flex items-center justify-center opacity-35 pointer-events-none">
+            <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none min-h-[500px] sm:min-h-0">
               <Lottie
                 animationData={animationData}
                 loop
                 autoplay
-                speed={0.5}
                 className="w-full h-full max-w-4xl"
               />
             </div>
           )}
 
           <div className="relative z-10">
-            <p className="text-center text-base sm:text-lg md:text-xl uppercase tracking-widest text-[var(--color-accent)] font-semibold mb-10">
+            <p className="text-center text-sm sm:text-base uppercase tracking-[0.2em] text-white/40 font-medium mb-10">
               {c.markersLabel}
             </p>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 max-w-5xl mx-auto">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 max-w-5xl mx-auto">
               {c.markers.map((marker, index) => (
                 <div
                   key={index}
-                  className="group p-4 sm:p-6 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/8 hover:border-[var(--color-accent)]/30 transition-all duration-300"
+                  className="group p-4 sm:p-5 rounded-xl bg-white/[0.06] backdrop-blur-xl border border-white/[0.08] hover:border-white/20 transition-all duration-300"
                 >
-                  <div className="flex items-start gap-4">
-                    <span className="flex-shrink-0 w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-[var(--color-accent)]">
+                  <div className="flex items-start gap-3.5">
+                    <span className="flex-shrink-0 w-9 h-9 rounded-lg bg-white/[0.08] border border-white/10 flex items-center justify-center text-white/50 group-hover:text-white/70 transition-colors duration-300">
                       {markerIcons[index]}
                     </span>
                     <div>
-                      <h3 className="text-[var(--color-accent)] font-semibold mb-1">
+                      <h3 className="text-white/90 font-semibold text-sm sm:text-base mb-1">
                         {marker.title}
                       </h3>
-                      <p className="text-white/50 text-sm">
+                      <p className="text-white/40 text-sm leading-relaxed">
                         {marker.description}
                       </p>
                     </div>
@@ -160,7 +171,11 @@ export function HowItWorks() {
             <p className="text-sm uppercase tracking-widest text-[var(--color-accent)] mb-8">
               {c.processLabel}
             </p>
-            <div className="space-y-8">
+            <div
+              className="space-y-8"
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+            >
               {c.steps.map((step, index) => {
                 const isActive = activeStep === index;
                 return (
@@ -210,7 +225,7 @@ export function HowItWorks() {
           </div>
 
           {/* Right: App Screenshot with Arrows */}
-          <div className="flex items-center justify-center lg:justify-end gap-4 order-first lg:order-last mb-8 lg:mb-0">
+          <div className="flex items-center justify-center lg:justify-end gap-4 mb-8 lg:mb-0">
             {/* Left Arrow */}
             <button
               onClick={handlePrev}
@@ -222,17 +237,30 @@ export function HowItWorks() {
               </svg>
             </button>
 
-            {/* Image Container */}
-            <div className="relative w-[240px] sm:w-[280px] md:w-[320px] aspect-[3/4.5]">
-              {stepImages.map((img, index) => (
-                <Image
-                  key={img.src}
-                  src={img.src}
-                  alt={img.alt}
-                  fill
-                  className={`object-contain object-center drop-shadow-2xl transition-opacity duration-300 ${activeStep === index ? 'opacity-100' : 'opacity-0'}`}
+            {/* Image Container + Progress */}
+            <div>
+              <div className="relative w-[240px] sm:w-[280px] md:w-[320px] aspect-[3/4.5]">
+                {stepImages.map((img, index) => (
+                  <Image
+                    key={img.src}
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    sizes="(max-width: 640px) 240px, (max-width: 768px) 280px, 320px"
+                    className={`object-contain object-center drop-shadow-2xl transition-opacity duration-300 ${activeStep === index ? 'opacity-100' : 'opacity-0'}`}
+                  />
+                ))}
+              </div>
+              <div className="mt-4 h-[2px] bg-white/10 rounded-full overflow-hidden">
+                <div
+                  key={animKey}
+                  className="h-full bg-[var(--color-accent)]/40 rounded-full"
+                  style={{
+                    animation: `progressFill ${STEP_DURATION}ms linear forwards`,
+                    animationPlayState: isPaused ? 'paused' : 'running',
+                  }}
                 />
-              ))}
+              </div>
             </div>
 
             {/* Right Arrow */}

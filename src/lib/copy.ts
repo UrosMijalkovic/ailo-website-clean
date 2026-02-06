@@ -155,7 +155,7 @@ export const copy = {
           image: "/images/team/dr-zannah.jpg",
           credentials: [
             "30 years researching human nature",
-            "Creator of The Natural Mathematics of Man",
+            "Creator of The Natural Mathematics of Human",
             "Founder of Y.O.U. Institute",
             "CA Board of Behavioral Sciences approved",
           ],
@@ -403,67 +403,143 @@ export const copy = {
   // THE SCIENCE PAGE
   // ===========================================
   theScience: {
+    // SECTION 1: HERO
     hero: {
-      badge: "US Patent #8556630B2",
-      headline: "The Science Behind Compatibility",
-      subhead: "30 years of behavioral research. One breakthrough methodology.",
+      badge: "US Patented Methodology",
+      headline: "The Natural Mathematics of Human",
+      subhead: "30 years of behavioral research. One breakthrough methodology. The science that powers AILO.",
+      stats: [
+        { value: "30+", label: "Years of Research" },
+        { value: "13K+", label: "People Assessed" },
+        { value: "US Patent", label: "#8556630B2" },
+      ],
     },
-    research: {
-      headline: "The Research",
-      description: "Dr. Zannah Hackett spent 30 years studying human nature and relationship dynamics. Her work became the foundation for AILO.",
-      quote: "Compatibility isn't about shared interests. It's about how two people's natural traits interact.",
+
+    // SECTION 2: THE PROBLEM
+    problem: {
+      headline: "Dating Wasn\u2019t Designed to Work.",
+      stats: [
+        { value: "69%", description: "of relationships fail within the first 18 months due to undiscovered incompatibilities.", source: "Gottman Institute" },
+        { value: "49%", description: "of singles say finding someone with shared values is the hardest part of dating.", source: "Pew Research, 2023" },
+        { value: "6 mo", description: "is the average time it takes to discover fundamental incompatibilities \u2014 after you\u2019re already invested.", source: "Behavioral Studies" },
+      ],
+      closing: "AILO doesn\u2019t wait for incompatibility to surface. We measure it before your first conversation.",
     },
-    markers: {
-      headline: "The 6 Compatibility Markers",
-      subhead: "Based on decades of behavioral research",
+
+    // SECTION 3: BRIDGE
+    bridge: {
+      line1: "This is the science AILO is built on.",
+      line2: "The patterns that predict compatibility are measurable.",
+      line3: "We found them. We patented them. Now they work for you.",
+    },
+
+    // SECTION 4: METHODOLOGY
+    methodology: {
+      headline: "Founded in Physical Law and Scientific Objective Understanding",
+      body: "Dr. Zannah Hackett spent 30 years studying human nature through the lens of physical law \u2014 not opinion, not theory, but observable, repeatable patterns. Her work, The Ultimate Life Tool (ULT), became the foundation for AILO\u2019s compatibility engine.",
+      principleTitle: "Natural vs. Learned Talents",
+      principleBody: "Every person has a natural design \u2014 traits they were born with that define how they show up, communicate, and connect. These are different from learned behaviors, which are adaptations shaped by environment. AILO measures the natural design, because that\u2019s what determines long-term compatibility.",
+    },
+
+    // SECTION 5: THE 6 DIMENSIONS
+    dimensions: {
+      headline: "The 6 Dimensions of Compatibility",
+      subhead: "Each person is measured across six scientific dimensions \u2014 the building blocks of who you naturally are.",
       items: [
-        { name: "Physical Traits", description: "Your natural traits that determine how you show up in the world" },
-        { name: "Motivators", description: "What drives you — what must be fed and honored for you to thrive" },
-        { name: "Tolerance", description: "Your boundaries — what you can and can't tolerate in a partner" },
-        { name: "Communication", description: "How you relate, connect, and process information" },
-        { name: "Perception", description: "Whether you see what's working or not working first" },
-        { name: "Energy Level", description: "How much physical and emotional energy you bring to relationships" },
+        {
+          name: "Styles",
+          subtitle: "Physical Traits",
+          description: "Your natural traits that determine how you show up in the world \u2014 your presence, energy, and first impression.",
+          detail: "These are the observable, innate characteristics that shape how others experience you before a single word is spoken.",
+          pills: ["Regal", "Energetic", "Perceptive", "Effervescent", "Absorptive"],
+        },
+        {
+          name: "Features",
+          subtitle: "Motivators",
+          description: "The 12 driving forces that must be fed and honored for you to thrive.",
+          detail: "Think of these as passengers in the vehicle of self \u2014 each one demands attention. When a motivator is ignored, dissatisfaction follows.",
+          pills: ["12 Driving Forces", "Core Needs", "Must-Haves"],
+        },
+        {
+          name: "Alchemy",
+          subtitle: "Tolerance",
+          description: "Your boundaries \u2014 what you can and can\u2019t tolerate in a partner. The #1 reason for relationship challenges.",
+          detail: "Tolerance mismatches are the single greatest predictor of relationship failure. Gold tolerates everything. Copper tolerates almost nothing. Most conflicts stem from here.",
+          pills: ["Gold", "Silver", "Copper"],
+        },
+        {
+          name: "Energy Centers",
+          subtitle: "Communication",
+          description: "How you process information, make decisions, and relate to others.",
+          detail: "Your dominant energy center determines whether you lead with logic, action, emotion, or instinct \u2014 and how you expect your partner to communicate.",
+          pills: ["Intellectual", "Moving", "Emotional", "Instinctual"],
+        },
+        {
+          name: "Polarity",
+          subtitle: "Perception",
+          description: "Whether you see what\u2019s working or what\u2019s not working first \u2014 your electromagnetic potential.",
+          detail: "Positive polarity sees possibilities. Negative polarity sees problems. Neutral sits in between. This shapes every interaction and every conflict.",
+          pills: ["Positive", "Negative", "Neutral"],
+        },
+        {
+          name: "Energy Pool",
+          subtitle: "Available Energy",
+          description: "How much physical and emotional energy you naturally carry \u2014 and how you spend it.",
+          detail: "Guard your energy appropriation like staying hydrated. Some people run hot, some run steady. Mismatched energy levels create invisible friction.",
+          pills: ["High", "Medium", "Steady"],
+        },
       ],
     },
-    whatThisMeans: {
-      headline: "What This Means For You",
-      description: "Instead of discovering incompatibilities after 6 months of dating, AILO reveals them before your first conversation.",
-    },
+
+    // SECTION 6: THE ASSESSMENT
     assessment: {
-      headline: "How the Assessment Works",
-      subhead: "The AILO Discovery Assessment measures three dimensions:",
+      headline: "7 Minutes. 3 Dimensions. Complete Clarity.",
+      subhead: "The AILO Discovery Assessment captures your natural design across three measurement dimensions:",
       dimensions: [
-        { name: "Perception", description: "How you see yourself" },
-        { name: "Reality", description: "How you actually show up" },
-        { name: "Expression", description: "How others experience you" },
+        { name: "Perception", description: "How you see yourself \u2014 your internal self-image and the story you tell about who you are." },
+        { name: "Reality", description: "How you actually show up \u2014 the measurable, observable traits that define your natural behavior." },
+        { name: "Expression", description: "How others experience you \u2014 the impression you leave, often different from what you intend." },
       ],
-      closing: "In 7 minutes, we capture what takes years to discover through dating.",
+      reveal: "Most couples discover these gaps 6 months in.",
+      revealAccent: "We reveal them in 7 minutes.",
     },
-    team: {
-      headline: "The Team Behind the Science",
-      drZannah: {
-        name: "Dr. Zannah Hackett",
-        title: "Chief Science Officer",
-        credentials: [
-          "30 years researching human nature",
-          "Creator of \"The Natural Mathematics of Man\"",
-          "Founder of Y.O.U. Institute",
-          "Curriculum approved by CA Board of Behavioral Sciences",
-        ],
-      },
-      haleh: {
-        name: "Haleh Gianni",
-        title: "CEO",
-        credentials: [
-          "15 years as relationship coach",
-          "Trained in the Y.O.U. methodology",
-          "10+ years as Senior Systems Quality Engineer",
-          "\"I built the dating service I wish existed\"",
-        ],
-      },
+
+    // SECTION 7: RESEARCH & CREDIBILITY
+    credibility: {
+      headline: "Backed by Decades. Approved by Institutions.",
+      stats: [
+        { value: "30+", label: "Years of Research" },
+        { value: "13K+", label: "Clients Assessed" },
+        { value: "0", label: "Complaints" },
+      ],
+      patent: "Patented Assessment Methodology",
+      institutions: [
+        { name: "CA Board of Behavioral Sciences", detail: "Curriculum approved provider" },
+        { name: "Board of Registered Nursing", detail: "Continuing education approved" },
+        { name: "International Coach Federation", detail: "Recognized methodology" },
+        { name: "United States Patent Office", detail: "Patent #8556630B2" },
+      ],
+      research: [
+        { name: "Gottman Institute", detail: "69% of relationship problems are perpetual \u2014 rooted in fundamental personality differences" },
+        { name: "Esther Perel", detail: "Modern relationships carry an unprecedented burden of expectation" },
+        { name: "University of Kansas", detail: "Similarity in values predicts relationship satisfaction better than any other factor" },
+        { name: "Psychological Science, 2015", detail: "Personality compatibility is measurable and predictive of long-term outcomes" },
+        { name: "Cornell University, 2021", detail: "Algorithmic matching based on deep traits outperforms self-selection" },
+      ],
     },
+
+    // SECTION 8: EMOTIONAL CLOSE
+    emotionalClose: {
+      headline: "What This Means for You",
+      line1: "You\u2019re not broken. You\u2019re not too picky.",
+      line2: "You\u2019ve just been navigating without a map.",
+      closer: "Stop guessing. Start knowing.",
+    },
+
+    // SECTION 9: CTA
     cta: {
-      headline: "Ready to discover your compatibility profile?",
+      headline: "Ready to See What\u2019s Really Happening?",
+      subhead: "Take the 7-minute assessment and discover your natural compatibility profile.",
       button: "Apply for Access",
     },
   },
@@ -499,7 +575,7 @@ export const copy = {
       credentialsTitle: "Credentials",
       credentials: [
         "30 years researching human nature",
-        "Creator of \"The Natural Mathematics of Man\"",
+        "Creator of \"The Natural Mathematics of Human\"",
         "Founder of Y.O.U. Institute",
         "Curriculum approved by CA Board of Behavioral Sciences",
         "Author, Behaviorist, Educator",

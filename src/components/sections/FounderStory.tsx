@@ -127,10 +127,10 @@ export function FounderStory() {
           {/* CTA */}
           <div className="text-center mt-8">
             <Link
-              href="/about"
+              href="/apply"
               className="inline-flex items-center gap-2 text-[var(--color-accent)] font-medium hover:text-white transition-colors"
             >
-              Meet the full team
+              Apply for Access
               <svg
                 className="w-4 h-4"
                 fill="none"

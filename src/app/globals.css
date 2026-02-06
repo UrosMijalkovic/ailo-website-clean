@@ -264,7 +264,8 @@ body {
 
 /* App-style Progress Bar */
 .progress-bar-container {
-  background: #3A3A3A;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 9999px;
   height: 8px;
   overflow: hidden;
@@ -310,9 +311,21 @@ body {
   justify-content: center;
 }
 
+/* Step auto-advance progress bar */
+@keyframes progressFill {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
 /* Section spacing */
 .section {
-  padding: 5rem 1.5rem;
+  padding: 3.5rem 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .section {
+    padding: 5rem 1.5rem;
+  }
 }
 
 @media (min-width: 768px) {
@@ -391,14 +404,14 @@ body {
 }
 
 .phone-input-dark .PhoneInputInput {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
   border-radius: 0.5rem;
   padding: 0.625rem 0.75rem;
   color: white;
   font-size: 1rem;
   outline: none;
-  transition: border-color 0.15s ease;
+  transition: border-color 0.3s ease;
   width: 100%;
 }
 
@@ -407,12 +420,12 @@ body {
 }
 
 .phone-input-dark .PhoneInputInput::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .phone-input-dark .PhoneInputCountry {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.10);
   border-radius: 0.5rem;
   padding: 0 0.5rem;
   margin-right: 0.5rem;

@@ -6,7 +6,20 @@ import { WaitlistForm } from "./WaitlistForm";
 export const metadata: Metadata = {
   title: "You're In! - Join the Waitlist",
   description:
-    "Get priority access when AILO launches in your city. Join 1,200+ others waiting.",
+    "Get priority access when AILO launches in your city. Join 1,200+ others waiting for science-backed matchmaking.",
+  openGraph: {
+    title: "Join the AILO Waitlist",
+    description:
+      "Get priority access when AILO launches in your city. Science-backed matchmaking is coming soon.",
+    images: ["/video/herovideo-poster.jpg"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Join the AILO Waitlist",
+    description:
+      "Get priority access when AILO launches in your city. Science-backed matchmaking is coming soon.",
+    images: ["/video/herovideo-poster.jpg"],
+  },
 };
 
 const whileYouWait = [

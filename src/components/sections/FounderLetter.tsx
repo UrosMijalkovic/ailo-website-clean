@@ -1,8 +1,7 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const promises = [
@@ -26,6 +25,8 @@ const promises = [
 
 export function FounderLetter() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   // Track scroll progress for card animations
   const { scrollYProgress } = useScroll({
@@ -54,7 +55,7 @@ export function FounderLetter() {
   ];
 
   return (
-    <section className="relative py-16 sm:py-24 md:py-32 bg-gradient-to-b from-[#0a0a0a] to-[#0f0f0f]">
+    <section className="relative py-12 sm:py-20 md:py-32 bg-gradient-to-b from-[#0a0a0a] to-[#0f0f0f]">
       <div className="container-custom">
         <div className="max-w-5xl mx-auto">
           {/* Headline */}
@@ -69,25 +70,39 @@ export function FounderLetter() {
           {/* Two column: Video + Promises - aligned heights */}
           <div ref={containerRef} className="grid lg:grid-cols-[1.2fr_1fr] gap-8 sm:gap-12 lg:gap-10 items-stretch mb-16 sm:mb-20">
             {/* Left: Video */}
-            <div className="relative rounded-xl sm:rounded-2xl overflow-hidden group cursor-pointer">
-              {/* Background Image */}
-              <Image
-                src="/images/gallery/haleh-video-placeholder.jpg"
-                alt="Haleh Gianni - Founder of AILO"
-                fill
-                className="object-cover"
+            <div
+              className="relative aspect-[4/3] lg:aspect-auto rounded-xl sm:rounded-2xl overflow-hidden cursor-pointer group"
+              onClick={() => {
+                const v = videoRef.current;
+                if (!v) return;
+                if (v.paused) {
+                  v.play();
+                  setIsPlaying(true);
+                } else {
+                  v.pause();
+                  setIsPlaying(false);
+                }
+              }}
+            >
+              <video
+                ref={videoRef}
+                src="/video/AILO-Haleh.mp4"
+                poster="/video/AILO-Haleh-poster.jpg"
+                preload="none"
+                playsInline
+                onEnded={() => setIsPlaying(false)}
+                className="w-full h-full object-cover"
               />
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
-              {/* Play button */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-white/90 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg">
-                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[var(--color-primary)] ml-1" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
+              {/* Play button overlay */}
+              {!isPlaying && (
+                <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                  <div className="w-14 h-14 sm:w-18 sm:h-18 rounded-full bg-white/90 flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
+                    <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[var(--color-primary)] ml-1" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
                 </div>
-                <p className="text-white/80 text-sm font-medium">Video coming soon</p>
-              </div>
+              )}
             </div>
 
             {/* Right: Promises with scroll animation */}

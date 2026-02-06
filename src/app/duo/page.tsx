@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Header, Footer } from "@/components/layout";
@@ -23,11 +23,16 @@ const stepImages = [
   },
 ];
 
+const STEP_DURATION = 5000;
+
 export default function DuoPage() {
   const [activeStep, setActiveStep] = useState<number>(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [animKey, setAnimKey] = useState(0);
   const bridgeRef = useRef<HTMLDivElement>(null);
   const occasionsBannerRef = useRef<HTMLDivElement>(null);
   const whatYouGetBannerRef = useRef<HTMLDivElement>(null);
+  const whatYouGetCardsRef = useRef<HTMLDivElement>(null);
 
   // Bridge scroll animation (staggered opacity + y)
   const { scrollYProgress: bridgeProgress } = useScroll({
@@ -57,13 +62,41 @@ export default function DuoPage() {
   const whatYouGetScale = useTransform(whatYouGetProgress, [0, 1], [0.85, 1]);
   const whatYouGetOpacity = useTransform(whatYouGetProgress, [0, 0.5], [0.6, 1]);
 
-  const handlePrev = () => {
-    setActiveStep((prev) => (prev === 0 ? stepImages.length - 1 : prev - 1));
-  };
+  // WhatYouGet cards scroll animation (staggered scale + opacity + y)
+  const { scrollYProgress: cardsProgress } = useScroll({
+    target: whatYouGetCardsRef,
+    offset: ["start end", "start center"],
+  });
+  const cardOpacity0 = useTransform(cardsProgress, [0, 0.4], [0, 1]);
+  const cardY0 = useTransform(cardsProgress, [0, 0.4], [60, 0]);
+  const cardScale0 = useTransform(cardsProgress, [0, 0.4], [0.9, 1]);
+  const cardOpacity1 = useTransform(cardsProgress, [0.1, 0.5], [0, 1]);
+  const cardY1 = useTransform(cardsProgress, [0.1, 0.5], [60, 0]);
+  const cardScale1 = useTransform(cardsProgress, [0.1, 0.5], [0.9, 1]);
+  const cardOpacity2 = useTransform(cardsProgress, [0.2, 0.6], [0, 1]);
+  const cardY2 = useTransform(cardsProgress, [0.2, 0.6], [60, 0]);
+  const cardScale2 = useTransform(cardsProgress, [0.2, 0.6], [0.9, 1]);
+  const cardOpacity3 = useTransform(cardsProgress, [0.3, 0.7], [0, 1]);
+  const cardY3 = useTransform(cardsProgress, [0.3, 0.7], [60, 0]);
+  const cardScale3 = useTransform(cardsProgress, [0.3, 0.7], [0.9, 1]);
 
-  const handleNext = () => {
+  // Auto-advance steps
+  useEffect(() => {
+    if (isPaused) return;
+    setAnimKey((k) => k + 1);
+    const timeout = setTimeout(() => {
+      setActiveStep((prev) => (prev + 1) % stepImages.length);
+    }, STEP_DURATION);
+    return () => clearTimeout(timeout);
+  }, [activeStep, isPaused]);
+
+  const handlePrev = useCallback(() => {
+    setActiveStep((prev) => (prev === 0 ? stepImages.length - 1 : prev - 1));
+  }, []);
+
+  const handleNext = useCallback(() => {
     setActiveStep((prev) => (prev === stepImages.length - 1 ? 0 : prev + 1));
-  };
+  }, []);
 
   // Double the occasions for marquee
   const doubledOccasions = [...c.occasions.items, ...c.occasions.items];
@@ -152,7 +185,7 @@ export default function DuoPage() {
         {/* ============================================
             SECTION 2: BRIDGE (Staggered Text Animation)
         ============================================ */}
-        <section ref={bridgeRef} className="relative pt-16 sm:pt-20 md:pt-28 pb-12 sm:pb-16 md:pb-20 bg-[#0a0a0a]">
+        <section ref={bridgeRef} className="relative pt-12 sm:pt-16 md:pt-28 pb-10 sm:pb-14 md:pb-20 bg-[#0a0a0a]">
           <div className="container-custom">
             <div className="max-w-3xl mx-auto text-center">
               {/* Line 1: Positioning */}
@@ -189,9 +222,8 @@ export default function DuoPage() {
           <div className="container-custom" ref={occasionsBannerRef}>
             {/* Animated image banner */}
             <motion.div
-              className="relative max-w-5xl mx-auto rounded-2xl overflow-hidden"
+              className="relative max-w-5xl mx-auto rounded-2xl overflow-hidden aspect-[3/2] sm:aspect-[2431/900]"
               style={{
-                aspectRatio: "2431 / 900",
                 scale: occasionsScale,
                 opacity: occasionsOpacity,
               }}
@@ -201,6 +233,7 @@ export default function DuoPage() {
                 src="/images/DUO/duo-banner.jpg"
                 alt="AILO Duo - Compatibility assessment for couples"
                 fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1280px) 90vw, 1280px"
                 className="object-cover"
                 priority
               />
@@ -250,13 +283,13 @@ export default function DuoPage() {
           </div>
 
           {/* Gradient transition to next section */}
-          <div className="h-16 sm:h-20 md:h-24 bg-gradient-to-b from-[#0a0a0a] to-[#111]" />
+          <div className="h-12 sm:h-16 md:h-20 bg-gradient-to-b from-[#0a0a0a] to-[#111]" />
         </section>
 
         {/* ============================================
             SECTION 4: HOW IT WORKS (Screenshot Carousel)
         ============================================ */}
-        <section id="how-it-works" className="relative py-16 sm:py-24 md:py-32 bg-[#111]">
+        <section id="how-it-works" className="relative py-12 sm:py-20 md:py-32 bg-[#111]">
           <div className="container-custom">
             {/* Section Header */}
             <div className="text-center mb-10 sm:mb-16">
@@ -272,7 +305,11 @@ export default function DuoPage() {
             <div className="grid lg:grid-cols-2 gap-10 sm:gap-16 items-center max-w-6xl mx-auto">
               {/* Left: Steps */}
               <div>
-                <div className="space-y-8">
+                <div
+                  className="space-y-8"
+                  onMouseEnter={() => setIsPaused(true)}
+                  onMouseLeave={() => setIsPaused(false)}
+                >
                   {c.howItWorks.steps.map((step, index) => {
                     const isActive = activeStep === index;
                     return (
@@ -314,7 +351,7 @@ export default function DuoPage() {
               </div>
 
               {/* Right: Screenshot with Arrows */}
-              <div className="flex items-center justify-center lg:justify-end gap-4 order-first lg:order-last mb-8 lg:mb-0">
+              <div className="flex items-center justify-center lg:justify-end gap-4 mb-8 lg:mb-0">
                 {/* Left Arrow */}
                 <button
                   onClick={handlePrev}
@@ -326,19 +363,32 @@ export default function DuoPage() {
                   </svg>
                 </button>
 
-                {/* Image Container */}
-                <div className="relative w-[240px] sm:w-[280px] md:w-[320px] aspect-[9/16]">
-                  {stepImages.map((img, index) => (
-                    <Image
-                      key={img.src}
-                      src={img.src}
-                      alt={img.alt}
-                      fill
-                      className={`object-contain object-center drop-shadow-2xl transition-opacity duration-300 ${
-                        activeStep === index ? "opacity-100" : "opacity-0"
-                      }`}
+                {/* Image Container + Progress */}
+                <div>
+                  <div className="relative w-[240px] sm:w-[280px] md:w-[320px] aspect-[9/16]">
+                    {stepImages.map((img, index) => (
+                      <Image
+                        key={img.src}
+                        src={img.src}
+                        alt={img.alt}
+                        fill
+                        sizes="(max-width: 640px) 240px, (max-width: 768px) 280px, 320px"
+                        className={`object-contain object-center drop-shadow-2xl transition-opacity duration-300 ${
+                          activeStep === index ? "opacity-100" : "opacity-0"
+                        }`}
                     />
                   ))}
+                  </div>
+                  <div className="mt-4 h-[2px] bg-white/10 rounded-full overflow-hidden">
+                    <div
+                      key={animKey}
+                      className="h-full bg-[var(--color-accent)]/40 rounded-full"
+                      style={{
+                        animation: `progressFill ${STEP_DURATION}ms linear forwards`,
+                        animationPlayState: isPaused ? 'paused' : 'running',
+                      }}
+                    />
+                  </div>
                 </div>
 
                 {/* Right Arrow */}
@@ -363,9 +413,8 @@ export default function DuoPage() {
           <div className="container-custom" ref={whatYouGetBannerRef}>
             {/* Animated image banner */}
             <motion.div
-              className="relative max-w-5xl mx-auto rounded-2xl overflow-hidden"
+              className="relative max-w-5xl mx-auto rounded-2xl overflow-hidden aspect-[3/2] sm:aspect-[2431/900]"
               style={{
-                aspectRatio: "2431 / 900",
                 scale: whatYouGetScale,
                 opacity: whatYouGetOpacity,
               }}
@@ -375,6 +424,7 @@ export default function DuoPage() {
                 src="/images/DUO/duo-cta.jpg"
                 alt="AILO Duo - Understand your relationship"
                 fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1280px) 90vw, 1280px"
                 className="object-cover"
               />
               {/* Dark overlay for text readability */}
@@ -397,48 +447,58 @@ export default function DuoPage() {
           </div>
 
           {/* What You Get Cards - Overlapping banner */}
-          <div className="relative -mt-8 sm:-mt-12 md:-mt-16 z-10">
+          <div ref={whatYouGetCardsRef} className="relative -mt-8 sm:-mt-12 md:-mt-16 z-10">
             <div className="container-custom">
               <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 max-w-4xl mx-auto">
-                {c.whatYouGet.items.map((item, index) => (
-                  <div
-                    key={index}
-                    className="flex items-start gap-4 p-5 sm:p-6 rounded-xl border backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] bg-white/10 border-white/20 hover:border-white/30 transition-colors"
-                  >
-                    {/* Check Icon */}
-                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                      <svg
-                        className="w-4 h-4 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2.5}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    </div>
+                {c.whatYouGet.items.map((item, index) => {
+                  const opacities = [cardOpacity0, cardOpacity1, cardOpacity2, cardOpacity3];
+                  const ys = [cardY0, cardY1, cardY2, cardY3];
+                  const scales = [cardScale0, cardScale1, cardScale2, cardScale3];
+                  return (
+                    <motion.div
+                      key={index}
+                      style={{
+                        opacity: opacities[index],
+                        y: ys[index],
+                        scale: scales[index],
+                      }}
+                      className="flex items-start gap-4 p-5 sm:p-6 rounded-xl border backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] bg-white/10 border-white/20 hover:border-white/30 transition-colors"
+                    >
+                      {/* Check Icon */}
+                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                        <svg
+                          className="w-4 h-4 text-white"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2.5}
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      </div>
 
-                    {/* Content */}
-                    <div>
-                      <h3 className="text-base sm:text-lg font-semibold text-white mb-1">
-                        {item.title}
-                      </h3>
-                      <p className="text-white/50 text-sm leading-relaxed">
-                        {item.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+                      {/* Content */}
+                      <div>
+                        <h3 className="text-base sm:text-lg font-semibold text-white mb-1">
+                          {item.title}
+                        </h3>
+                        <p className="text-white/50 text-sm leading-relaxed">
+                          {item.description}
+                        </p>
+                      </div>
+                    </motion.div>
+                  );
+                })}
               </div>
             </div>
           </div>
 
           {/* Gradient transition to next section */}
-          <div className="h-16 sm:h-20 md:h-24 bg-gradient-to-b from-[#111] to-[#0a0a0a]" />
+          <div className="h-12 sm:h-16 md:h-20 bg-gradient-to-b from-[#111] to-[#0a0a0a]" />
         </section>
 
         {/* ============================================
@@ -460,7 +520,7 @@ export default function DuoPage() {
         {/* ============================================
             SECTION 7: CTA (App Download)
         ============================================ */}
-        <section id="download" className="relative py-16 sm:py-24 md:py-32 bg-gradient-to-b from-[#0a0a0a] to-[#000]">
+        <section id="download" className="relative py-12 sm:py-20 md:py-32 bg-gradient-to-b from-[#0a0a0a] to-[#000]">
           <div className="container-custom">
             <div className="max-w-2xl mx-auto text-center">
               <h2 className="font-[var(--font-playfair)] text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">

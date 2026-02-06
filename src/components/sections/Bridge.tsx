@@ -23,7 +23,7 @@ export function Bridge() {
   const y3 = useTransform(scrollYProgress, [0.1, 0.4, 0.6, 0.9], [40, 0, 0, -40]);
 
   return (
-    <section ref={containerRef} className="relative pt-16 sm:pt-20 md:pt-28 pb-12 sm:pb-16 md:pb-20 bg-[#0a0a0a]">
+    <section ref={containerRef} className="relative pt-12 sm:pt-16 md:pt-28 pb-10 sm:pb-14 md:pb-20 bg-[#0a0a0a]">
       <div className="container-custom">
         <div className="max-w-3xl mx-auto text-center">
           {/* Positioning */}

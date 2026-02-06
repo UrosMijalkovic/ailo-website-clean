@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export function ExperienceAilo() {
   return (
-    <section className="relative py-16 sm:py-24 md:py-32 bg-gradient-to-b from-[#0f0f0f] to-[#0a0a0a] overflow-hidden">
+    <section className="relative py-12 sm:py-20 md:py-32 bg-gradient-to-b from-[#0f0f0f] to-[#0a0a0a] overflow-hidden">
       <div className="container-custom relative z-10">
         <div className="max-w-5xl mx-auto">
           {/* Header */}
@@ -26,6 +26,7 @@ export function ExperienceAilo() {
                   src="/images/gallery/ailo-call.jpg"
                   alt="AILO Call"
                   fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
@@ -57,6 +58,7 @@ export function ExperienceAilo() {
                   src="/images/gallery/events.jpg"
                   alt="AILO Events"
                   fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
@@ -85,9 +87,10 @@ export function ExperienceAilo() {
               {/* Image */}
               <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
-                  src="/images/gallery/duo.jpg"
+                  src="/images/gallery/newcard.jpg"
                   alt="AILO Duo"
                   fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>

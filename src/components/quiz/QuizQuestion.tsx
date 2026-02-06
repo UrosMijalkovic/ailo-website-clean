@@ -27,10 +27,10 @@ export function QuizQuestion({
             role="radio"
             aria-checked={selectedAnswer === option.value}
             onClick={() => onAnswer(option.value as QuizAnswer)}
-            className={`w-full flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all text-left ${
+            className={`w-full flex items-center gap-4 p-4 rounded-xl cursor-pointer transition-all duration-300 text-left ${
               selectedAnswer === option.value
-                ? "bg-[var(--color-accent)] text-[var(--color-primary-dark)]"
-                : "bg-white/10 text-white hover:bg-white/20"
+                ? "bg-[var(--color-accent)] text-[var(--color-primary-dark)] shadow-[0_4px_20px_rgba(225,185,143,0.2)]"
+                : "bg-white/[0.06] backdrop-blur-xl border border-white/[0.08] text-white hover:border-white/20 hover:bg-white/[0.10]"
             }`}
           >
             <span

@@ -39,9 +39,8 @@ export function Problem() {
       <div className="container-custom" ref={containerRef}>
         {/* Animated image container */}
         <motion.div
-          className="relative max-w-5xl mx-auto rounded-2xl overflow-hidden"
+          className="relative max-w-5xl mx-auto rounded-2xl overflow-hidden aspect-[3/2] sm:aspect-[2431/900]"
           style={{
-            aspectRatio: '2431 / 900',
             scale,
             opacity
           }}
@@ -51,6 +50,7 @@ export function Problem() {
             src="/images/gallery/problem3.jpg"
             alt="Dating frustration"
             fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1280px) 90vw, 1280px"
             className="object-cover"
             priority
           />

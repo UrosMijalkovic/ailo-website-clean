@@ -10,7 +10,6 @@ const navLinks = [
   { href: "/duo", label: "AILO Duo" },
   { href: "/events", label: "AILO Events" },
   { href: "/the-science", label: "The Science" },
-  { href: "/about", label: "About" },
   { href: "/blog", label: "Blog" },
 ];
 

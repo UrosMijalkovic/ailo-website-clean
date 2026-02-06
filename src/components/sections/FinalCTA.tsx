@@ -22,13 +22,12 @@ export function FinalCTA() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [0.6, 1]);
 
   return (
-    <section className="py-16 sm:py-24 md:py-32 bg-[#0a0a0a]">
+    <section className="py-12 sm:py-20 md:py-32 bg-[#0a0a0a]">
       <div className="container-custom" ref={containerRef}>
         {/* Animated image container */}
         <motion.div
-          className="relative max-w-5xl mx-auto rounded-2xl overflow-hidden"
+          className="relative max-w-5xl mx-auto rounded-2xl overflow-hidden aspect-[3/2] sm:aspect-[2431/900]"
           style={{
-            aspectRatio: '2431 / 900',
             scale,
             opacity
           }}
@@ -38,6 +37,7 @@ export function FinalCTA() {
             src="/images/dating.avif"
             alt=""
             fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1280px) 90vw, 1280px"
             className="object-cover"
             priority={false}
           />

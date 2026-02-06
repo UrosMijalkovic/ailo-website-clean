@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Timing is Everything",
   description:
     "Finding love requires the right mindset. Here's how to get ready for AILO.",
+  robots: { index: false, follow: true },
 };
 
 export default function NotReadyPage() {

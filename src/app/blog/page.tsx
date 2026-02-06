@@ -1,152 +1,107 @@
-import type { Metadata } from "next";
+"use client";
+
+import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Header, Footer } from "@/components/layout";
+import { blogPosts } from "@/lib/blog-data";
 
-export const metadata: Metadata = {
-  title: "Dating Insights Blog",
-  description:
-    "Tips, research, and real talk about modern dating and compatibility.",
-};
+const categories = ["All", "Dating Tips", "The Science"];
 
-// Placeholder blog posts - in production, these would come from a CMS or MDX files
-const featuredPost = {
-  slug: "science-of-compatibility",
-  title: "The Science of Compatibility: Why Dating Apps Get It Wrong",
-  excerpt:
-    "For decades, dating apps have relied on proximity and superficial preferences. Here's why that approach is fundamentally broken — and what science says actually works.",
-  date: "January 10, 2025",
-  readTime: "8 min read",
-  category: "The Science",
-  image: "/images/blog/DSCF8931-web.jpg",
-};
+function AnimatedCard({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "start 0.65"],
+  });
+  const scale = useTransform(scrollYProgress, [0, 1], [0.88, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [0, 1]);
 
-const recentPosts = [
-  {
-    slug: "understanding-your-communication-style",
-    title: "Understanding Your Communication Style in Relationships",
-    excerpt:
-      "How you relate, connect, and learn can make or break a relationship. Discover your primary communication doorway.",
-    date: "January 8, 2025",
-    readTime: "5 min read",
-    category: "Dating Tips",
-    image: "/images/blog/LEN04168-web.jpg",
-  },
-  {
-    slug: "why-shared-interests-dont-matter",
-    title: "Why Shared Interests Don't Matter as Much as You Think",
-    excerpt:
-      "Forget hiking and travel. Real compatibility is about how your natural traits interact — not your hobbies.",
-    date: "January 5, 2025",
-    readTime: "6 min read",
-    category: "The Science",
-    image: "/images/blog/DSCF8613-web.jpg",
-  },
-  {
-    slug: "first-date-questions-that-actually-matter",
-    title: "First Date Questions That Actually Matter",
-    excerpt:
-      "Skip the small talk. These questions reveal compatibility markers that take most couples years to discover.",
-    date: "January 2, 2025",
-    readTime: "4 min read",
-    category: "Dating Tips",
-    image: "/images/blog/LEN03887-web.jpg",
-  },
-  {
-    slug: "emotional-availability-what-it-really-means",
-    title: "Emotional Availability: What It Really Means",
-    excerpt:
-      "Everyone says they want an emotionally available partner. Here's how to assess it — in yourself and others.",
-    date: "December 28, 2024",
-    readTime: "7 min read",
-    category: "Dating Tips",
-    image: "/images/blog/DSCF8849-web.jpg",
-  },
-  {
-    slug: "building-ailo-founders-journey",
-    title: "Building AILO: A Founder's Journey from Frustration to Solution",
-    excerpt:
-      "Why I quit my tech job to build a dating app. Spoiler: it started with a lot of bad first dates.",
-    date: "December 20, 2024",
-    readTime: "10 min read",
-    category: "News",
-    image: "/images/blog/LEN04089-web.jpg",
-  },
-  {
-    slug: "breaking-the-pattern",
-    title: "Breaking the Pattern: Why You Keep Dating the Same Type",
-    excerpt:
-      "Understanding your attachment style and natural preferences can reveal why you're attracted to certain people.",
-    date: "December 15, 2024",
-    readTime: "6 min read",
-    category: "Dating Tips",
-    image: "/images/blog/DSCF8337-web.jpg",
-  },
-  {
-    slug: "modern-dating-paradox",
-    title: "The Modern Dating Paradox: More Options, Less Connection",
-    excerpt:
-      "Why having endless choices actually makes it harder to find meaningful relationships.",
-    date: "December 10, 2024",
-    readTime: "5 min read",
-    category: "The Science",
-    image: "/images/blog/LEN04265-web.jpg",
-  },
-  {
-    slug: "authentic-connection-digital-age",
-    title: "Authentic Connection in the Digital Age",
-    excerpt:
-      "How to move beyond surface-level interactions and build genuine intimacy with potential partners.",
-    date: "December 5, 2024",
-    readTime: "7 min read",
-    category: "Dating Tips",
-    image: "/images/blog/DSCF8560-web.jpg",
-  },
-  {
-    slug: "red-flags-vs-preferences",
-    title: "Red Flags vs. Preferences: Knowing the Difference",
-    excerpt:
-      "Not every dealbreaker is a red flag. Learn to distinguish between incompatibility and genuine warning signs.",
-    date: "December 1, 2024",
-    readTime: "8 min read",
-    category: "Dating Tips",
-    image: "/images/blog/LEN04377-web.jpg",
-  },
-];
-
-const categories = ["All", "Dating Tips", "The Science", "Success Stories", "News"];
+  return (
+    <motion.div ref={ref} style={{ scale, opacity }} className={className}>
+      {children}
+    </motion.div>
+  );
+}
 
 export default function BlogPage() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const filtered =
+    activeCategory === "All"
+      ? blogPosts
+      : blogPosts.filter((p) => p.category === activeCategory);
+
+  const featured = filtered[0];
+  const posts = filtered.slice(1);
+
+  const { scrollYProgress: heroProgress } = useScroll({
+    target: heroRef,
+    offset: ["start end", "end start"],
+  });
+  const heroOpacity1 = useTransform(heroProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
+  const heroY1 = useTransform(heroProgress, [0, 0.3, 0.7, 1], [40, 0, 0, -40]);
+  const heroOpacity2 = useTransform(heroProgress, [0.05, 0.35, 0.65, 0.95], [0, 1, 1, 0]);
+  const heroY2 = useTransform(heroProgress, [0.05, 0.35, 0.65, 0.95], [40, 0, 0, -40]);
+
   return (
     <>
       <Header />
-      <main className="pt-20">
-        {/* Hero */}
-        <section className="section bg-[var(--color-surface)]">
+      <main>
+        {/* ============================================
+            HERO
+        ============================================ */}
+        <section
+          ref={heroRef}
+          className="relative pt-32 sm:pt-40 pb-12 sm:pb-16 bg-[#0a0a0a]"
+        >
           <div className="container-custom">
-            <div className="max-w-3xl">
-              <h1 className="font-[var(--font-playfair)] text-4xl md:text-5xl font-bold text-[var(--color-text-primary)] mb-4">
+            <div className="max-w-3xl mx-auto text-center">
+              <motion.p
+                style={{ opacity: heroOpacity1, y: heroY1 }}
+                className="text-sm uppercase tracking-widest text-white/40 font-medium mb-4"
+              >
+                Blog
+              </motion.p>
+              <motion.h1
+                style={{ opacity: heroOpacity2, y: heroY2 }}
+                className="font-[var(--font-playfair)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4"
+              >
                 Dating Insights
-              </h1>
-              <p className="text-lg text-[var(--color-text-secondary)]">
+              </motion.h1>
+              <motion.p
+                style={{ opacity: heroOpacity1, y: heroY1 }}
+                className="text-lg md:text-xl text-white/50 max-w-2xl mx-auto"
+              >
                 Tips, research, and real talk about modern dating and
                 compatibility.
-              </p>
+              </motion.p>
             </div>
           </div>
         </section>
 
-        {/* Categories */}
-        <section className="py-4 border-b border-white/10 sticky top-16 md:top-20 bg-[var(--color-surface)] z-10">
+        {/* ============================================
+            CATEGORIES
+        ============================================ */}
+        <section className="py-4 border-b border-white/[0.06] bg-[#0a0a0a]">
           <div className="container-custom">
-            <div className="flex gap-3 overflow-x-auto pb-2">
+            <div className="flex gap-2 overflow-x-auto pb-1 justify-center">
               {categories.map((category) => (
                 <button
                   key={category}
-                  className={`whitespace-nowrap transition-all ${
-                    category === "All"
-                      ? "tag-gold"
-                      : "tag-dark hover:bg-[#5A5A5A]"
+                  onClick={() => setActiveCategory(category)}
+                  className={`whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-300 cursor-pointer ${
+                    activeCategory === category
+                      ? "bg-white/10 text-white border border-white/20"
+                      : "text-white/40 hover:text-white/70 border border-transparent hover:border-white/10"
                   }`}
                 >
                   {category}
@@ -156,121 +111,135 @@ export default function BlogPage() {
           </div>
         </section>
 
-        {/* Featured Post */}
-        <section className="section bg-[var(--color-background)]">
+        {/* ============================================
+            FEATURED POST
+        ============================================ */}
+        {featured && (
+        <section className="py-10 sm:py-16 bg-[#0a0a0a]">
           <div className="container-custom">
-            <Link
-              href={`/blog/${featuredPost.slug}`}
-              className="block group"
-            >
-              <div className="card-teal-horizontal p-6 md:p-8">
-                <div className="grid md:grid-cols-2 gap-8 items-center">
-                  {/* Featured Image */}
-                  <div className="relative aspect-video rounded-xl overflow-hidden">
-                    <Image
-                      src={featuredPost.image}
-                      alt={featuredPost.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div>
-                    <span className="tag-gold mb-4">
-                      {featuredPost.category}
-                    </span>
-                    <h2 className="font-[var(--font-playfair)] text-2xl md:text-3xl font-bold text-white mt-4 mb-4 group-hover:text-[var(--color-accent)] transition-colors">
-                      {featuredPost.title}
-                    </h2>
-                    <p className="text-white/80 mb-4">
-                      {featuredPost.excerpt}
-                    </p>
-                    <div className="flex items-center gap-4 text-sm text-white/60">
-                      <span>{featuredPost.date}</span>
-                      <span>•</span>
-                      <span>{featuredPost.readTime}</span>
+            <AnimatedCard key={featured.slug}>
+              <Link
+                href={`/blog/${featured.slug}`}
+                className="block group"
+              >
+                <div className="relative rounded-2xl overflow-hidden bg-white/[0.04] border border-white/[0.08] backdrop-blur-xl">
+                  <div className="grid md:grid-cols-2 gap-0">
+                    {/* Featured Image */}
+                    <div className="relative aspect-[4/3] md:aspect-auto overflow-hidden">
+                      <Image
+                        src={featured.image}
+                        alt={featured.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        priority
+                      />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+                    </div>
+                    {/* Content */}
+                    <div className="p-6 sm:p-8 md:p-10 flex flex-col justify-center">
+                      <span className="inline-block px-3 py-1 rounded-full text-[10px] uppercase tracking-wider font-medium bg-white/[0.08] text-white/50 border border-white/[0.08] w-fit mb-4">
+                        {featured.category}
+                      </span>
+                      <h2 className="font-[var(--font-playfair)] text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 group-hover:text-white/80 transition-colors leading-tight">
+                        {featured.title}
+                      </h2>
+                      <p className="text-white/40 text-sm sm:text-base mb-5 leading-relaxed line-clamp-3">
+                        {featured.excerpt}
+                      </p>
+                      <div className="flex items-center gap-3 text-xs text-white/30">
+                        <span>{featured.author}</span>
+                        <span className="w-1 h-1 rounded-full bg-white/20" />
+                        <span>{featured.date}</span>
+                        <span className="w-1 h-1 rounded-full bg-white/20" />
+                        <span>{featured.readTime}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-
-            {/* Newsletter Signup */}
-            <div className="bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 rounded-2xl p-6 md:p-8 text-center mt-8">
-              <h3 className="font-semibold text-white text-lg mb-2">Get Dating Insights Weekly</h3>
-              <p className="text-white/70 text-sm mb-4">
-                Join 3,000+ readers getting science-backed dating advice every Friday.
-              </p>
-              <form className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
-                <input
-                  type="email"
-                  placeholder="Your email"
-                  className="flex-1 px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:border-[var(--color-accent)]"
-                />
-                <button
-                  type="submit"
-                  className="px-6 py-3 bg-[var(--color-accent)] hover:bg-[var(--color-accent)]/90 rounded-xl text-[var(--color-primary-dark)] font-medium transition-colors whitespace-nowrap"
-                >
-                  Subscribe
-                </button>
-              </form>
-              <p className="text-white/40 text-xs mt-3">No spam. Unsubscribe anytime.</p>
-            </div>
+              </Link>
+            </AnimatedCard>
           </div>
         </section>
+        )}
 
-        {/* Recent Posts */}
-        <section className="section bg-[var(--color-surface)]">
+        {/* ============================================
+            ALL POSTS GRID
+        ============================================ */}
+        {posts.length > 0 && (
+        <section className="py-8 sm:py-12 bg-[#0a0a0a]">
           <div className="container-custom">
-            <h2 className="font-[var(--font-playfair)] text-2xl font-bold text-[var(--color-text-primary)] mb-8">
-              Recent Posts
-            </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {recentPosts.map((post) => (
-                <Link
-                  key={post.slug}
-                  href={`/blog/${post.slug}`}
-                  className="block group card-muted overflow-hidden hover:scale-[1.02] transition-transform duration-300"
-                >
-                  {/* Post Image */}
-                  <div className="relative aspect-video overflow-hidden">
-                    <Image
-                      src={post.image}
-                      alt={post.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <span className="tag-gold text-[10px]">
-                      {post.category}
-                    </span>
-                    <h3 className="font-semibold text-white mt-3 mb-2 group-hover:text-[var(--color-accent)] transition-colors line-clamp-2">
-                      {post.title}
-                    </h3>
-                    <p className="text-sm text-white/70 mb-4 line-clamp-2">
-                      {post.excerpt}
-                    </p>
-                    <div className="flex items-center gap-3 text-xs text-white/50">
-                      <span>{post.date}</span>
-                      <span>•</span>
-                      <span>{post.readTime}</span>
+            <AnimatePresence mode="wait">
+            <motion.div
+              key={activeCategory}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.25 }}
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6"
+            >
+              {posts.map((post) => (
+                <AnimatedCard key={post.slug}>
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    className="block group h-full"
+                  >
+                    <div className="h-full rounded-2xl overflow-hidden bg-white/[0.03] border border-white/[0.06] hover:border-white/[0.12] transition-all duration-300">
+                      {/* Post Image */}
+                      <div className="relative aspect-[16/10] overflow-hidden">
+                        <Image
+                          src={post.image}
+                          alt={post.title}
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                      </div>
+                      {/* Content */}
+                      <div className="p-5 sm:p-6">
+                        <span className="inline-block px-2.5 py-1 rounded-full text-[10px] uppercase tracking-wider font-medium bg-white/[0.06] text-white/40 border border-white/[0.06] mb-3">
+                          {post.category}
+                        </span>
+                        <h3 className="font-semibold text-white text-sm sm:text-base mb-2 group-hover:text-white/80 transition-colors line-clamp-2 leading-snug">
+                          {post.title}
+                        </h3>
+                        <p className="text-white/35 text-sm mb-4 line-clamp-2 leading-relaxed">
+                          {post.excerpt}
+                        </p>
+                        <div className="flex items-center gap-2 text-[11px] text-white/25">
+                          <span>{post.date}</span>
+                          <span className="w-1 h-1 rounded-full bg-white/15" />
+                          <span>{post.readTime}</span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </Link>
+                  </Link>
+                </AnimatedCard>
               ))}
-            </div>
+            </motion.div>
+            </AnimatePresence>
           </div>
         </section>
+        )}
 
-        {/* CTA */}
-        <section className="section bg-gradient-hero">
+        {/* ============================================
+            CTA
+        ============================================ */}
+        <section className="py-16 sm:py-24 bg-gradient-to-b from-[#0a0a0a] to-[#000]">
           <div className="container-custom">
             <div className="max-w-2xl mx-auto text-center">
-              <h2 className="font-[var(--font-playfair)] text-3xl md:text-4xl font-bold text-white mb-4">
+              <h2 className="font-[var(--font-playfair)] text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
                 Ready to find your match?
               </h2>
-              <Link href="/apply" className="btn-primary text-lg">
-                See If You Qualify
+              <p className="text-white/40 mb-8">
+                Experience science-based compatibility matching.
+              </p>
+              <Link
+                href="/apply"
+                className="btn-primary text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4"
+              >
+                Apply for Access
               </Link>
             </div>
           </div>

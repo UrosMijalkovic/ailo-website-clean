@@ -1,41 +1,42 @@
 import type { Metadata } from "next";
 import { QuizContainer } from "./QuizContainer";
-import Link from "next/link";
-import Image from "next/image";
+import { Header } from "@/components/layout";
 
 export const metadata: Metadata = {
-  title: "Apply",
+  title: "Apply for AILO Membership",
   description:
-    "Complete a brief pre-assessment to see if AILO premium matchmaking is right for you.",
+    "Complete a brief pre-assessment to see if AILO premium matchmaking is right for you. Science-backed compatibility matching in South Florida.",
+  openGraph: {
+    title: "Apply for AILO Membership",
+    description:
+      "Complete a brief pre-assessment to see if AILO premium matchmaking is right for you.",
+    images: ["/video/herovideo-poster.jpg"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Apply for AILO Membership",
+    description:
+      "Complete a brief pre-assessment to see if AILO premium matchmaking is right for you.",
+    images: ["/video/herovideo-poster.jpg"],
+  },
 };
 
 export default function ApplyPage() {
   return (
-    <main className="min-h-screen bg-gradient-hero">
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[var(--color-primary-dark)]/95 backdrop-blur-sm border-b border-white/10">
-        <div className="container-custom">
-          <nav className="flex items-center justify-between h-16 md:h-20">
-            <Link href="/" className="flex items-center">
-              <Image
-                src="/images/app/Logo.png"
-                alt="AILO"
-                width={100}
-                height={40}
-                className="h-8 md:h-10 w-auto"
-                priority
-              />
-            </Link>
-          </nav>
-        </div>
-      </header>
+    <>
+      <Header />
+      <main className="relative min-h-screen overflow-hidden">
+        {/* Background layers for warmth/depth */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#2D3A40] via-[#1E1E1E] to-[#0a0a0a]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(56,111,115,0.15),transparent)]" />
 
-      {/* Pre-Assessment Content */}
-      <div className="container-custom pt-24 pb-12 min-h-screen flex flex-col">
-        <div className="flex-1 flex flex-col justify-center max-w-xl mx-auto w-full">
-          <QuizContainer />
+        {/* Content */}
+        <div className="relative container-custom pt-28 sm:pt-32 pb-12 min-h-screen flex flex-col">
+          <div className="flex-1 flex flex-col justify-center max-w-xl mx-auto w-full">
+            <QuizContainer />
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }

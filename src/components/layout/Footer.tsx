@@ -9,7 +9,6 @@ const footerLinks = {
   ],
   company: [
     { href: "/the-science", label: "The Science" },
-    { href: "/about", label: "About" },
     { href: "/blog", label: "Blog" },
   ],
   legal: [

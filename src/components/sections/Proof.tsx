@@ -1,6 +1,8 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { copy } from "@/lib/copy";
 
 const founderImages: Record<string, string> = {
@@ -10,25 +12,48 @@ const founderImages: Record<string, string> = {
 
 const c = copy.homepage.proof;
 
+function AnimatedBlock({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "start 0.6"],
+  });
+  const scale = useTransform(scrollYProgress, [0, 1], [0.9, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+  const y = useTransform(scrollYProgress, [0, 1], [40, 0]);
+
+  return (
+    <motion.div ref={ref} style={{ scale, opacity, y }} className={className}>
+      {children}
+    </motion.div>
+  );
+}
+
 export function Proof() {
   // Double the testimonials for seamless loop
   const doubledTestimonials = [...c.testimonials, ...c.testimonials];
 
   return (
-    <section className="relative py-16 sm:py-24 md:py-32 bg-[#0a0a0a]">
+    <section className="relative py-12 sm:py-20 md:py-32 bg-[#0a0a0a]">
       <div className="container-custom">
         {/* Headline */}
-        <div className="max-w-3xl mx-auto text-center mb-10 sm:mb-16">
+        <AnimatedBlock className="max-w-3xl mx-auto text-center mb-10 sm:mb-16">
           <h2 className="font-[var(--font-playfair)] text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
             {c.headline}
           </h2>
           <p className="text-lg text-white/50">
             {c.subhead}
           </p>
-        </div>
+        </AnimatedBlock>
 
         {/* Stats Row */}
-        <div className="flex flex-wrap justify-center gap-8 sm:gap-12 md:gap-20 mb-8">
+        <AnimatedBlock className="flex flex-wrap justify-center gap-8 sm:gap-12 md:gap-20 mb-8">
           {c.stats.map((stat, index) => (
             <div key={index} className="text-center">
               <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-[var(--color-accent)] mb-2">
@@ -39,7 +64,7 @@ export function Proof() {
               </div>
             </div>
           ))}
-        </div>
+        </AnimatedBlock>
 
         {/* Patent Badge */}
         <div className="flex justify-center mb-12 sm:mb-20 px-4">
@@ -47,14 +72,14 @@ export function Proof() {
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
-            Patented Assessment Methodology · US8556630B2
+            Patented Assessment Methodology
           </span>
         </div>
 
         {/* Founders */}
         <div className="grid md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto mb-12 sm:mb-20">
           {c.founders.map((founder, index) => (
-            <div
+            <AnimatedBlock
               key={index}
               className="flex flex-row rounded-2xl bg-white/5 border border-white/8 overflow-hidden"
             >
@@ -64,6 +89,7 @@ export function Proof() {
                   src={founderImages[founder.name] || "/images/gallery/haleh.jpg"}
                   alt={founder.name}
                   fill
+                  sizes="(max-width: 640px) 160px, 192px"
                   className="object-cover object-top scale-105"
                 />
               </div>
@@ -85,7 +111,7 @@ export function Proof() {
                   ))}
                 </ul>
               </div>
-            </div>
+            </AnimatedBlock>
           ))}
         </div>
 
@@ -122,6 +148,7 @@ export function Proof() {
                             src={testimonial.image}
                             alt={testimonial.name}
                             fill
+                            sizes="40px"
                             className="object-cover"
                           />
                         </div>
